@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+Copyright 2017 Alexander Kosarev
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
+    <head th:with="title=#{page.tickets.all}" th:include="partial/head :: head">
+        <title>Helpdesk Tutorial</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ol class="breadcrumb">
+                        <li class="active" th:text="#{page.tickets.all}"></li>
+                    </ol>
+                    <h1 th:text="#{page.tickets.all}">Tickets</h1>
+                    <a href="/tickets/create" th:href="@{/tickets/create}" class="btn btn-primary" th:text="#{page.tickets.new}"></a>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th th:text="#{ticket.id}"></th>
+                                <th th:text="#{ticket.issue}"></th>
+                                <th th:text="#{ticket.dateCreated}"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="ticket : ${page.content}">
+                                <td><a href="" th:href="@{/tickets/{id}(id=${ticket.id})}" th:text="${ticket.id}"></a></td>
+                                <td><a href="" th:href="@{/tickets/{id}(id=${ticket.id})}" th:text="${ticket.issue}"></a></td>
+                                <td th:text="${ticket.dateCreated}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <nav>
+                        <ul class="pagination" th:if="${page.totalPages} gt 1">
+                            <li th:each="pageNumber : ${#numbers.sequence(0, page.totalPages - 1)}" th:classappend="${page.number eq pageNumber}?'active'">
+                                <a href="#" th:href="@{/tickets(page=${pageNumber},size=${page.size})}" th:text="${pageNumber + 1}">&#171;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <th:block th:replace="partial/footer :: footer"></th:block>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

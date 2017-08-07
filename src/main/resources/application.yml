@@ -1,0 +1,9 @@
+server:
+    error:
+        whitelabel:
+            enabled: false
+spring:
+    messages:
+        fallback-to-system-locale: false
+    thymeleaf:
+        cache: false
